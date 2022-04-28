@@ -91,7 +91,8 @@ class RedBlackTree(BinarySearchTree):
             return
         if v.left is not None:
             self._inOrder(v.left)
-        print(v.key, v.color)
+        if v.key is not 10000:
+            print(v.key, v.color)
         if v.right is not None:
             self._inOrder(v.right)
 
