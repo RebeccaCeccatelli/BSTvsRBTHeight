@@ -75,11 +75,11 @@ class RedBlackTree(BinarySearchTree):
         x.father = y
 
     def rbInsert(self, newNode):
-        self.insert(newNode)
         self.Tnil = RBTNode(10000)
         self.Tnil.color = "black"
         newNode.left = self.Tnil
         newNode.right = self.Tnil
+        self.insert(newNode)
         newNode.color = "red"
         self.rbInsertFixup(newNode)
 
@@ -116,4 +116,19 @@ class RedBlackTree(BinarySearchTree):
                 currentNode.right = newNode
                 newNode.father = currentNode
 
+    def computeHeight(self, v):
+        if self.root is not None:
+            if v.key is 10000:
+                return -1
+            else:
+                leftHeight = -1
+                rightHeight = -1
+                if v.left is not None:
+                    leftHeight = self.computeHeight(v.left)
+                if v.right is not None:
+                    rightHeight = self.computeHeight(v.right)
 
+                max = leftHeight
+                if rightHeight > leftHeight:
+                    max = rightHeight
+                return max + 1

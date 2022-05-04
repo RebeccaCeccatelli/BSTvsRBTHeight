@@ -56,3 +56,11 @@ class BinarySearchTree:
         while currentNode.right is not None:
             currentNode = currentNode.right
         return currentNode
+
+    def computeHeight(self, v):
+        if v is None:
+            return -1
+        else:
+            leftHeight = self.computeHeight(v.left)
+            rightHeight = self.computeHeight(v.right)
+            return max(leftHeight, rightHeight) + 1
