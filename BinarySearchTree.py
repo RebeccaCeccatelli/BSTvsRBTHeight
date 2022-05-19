@@ -1,4 +1,3 @@
-from BSTNode import BSTNode
 
 class BinarySearchTree:
     def __init__(self):

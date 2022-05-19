@@ -1,7 +1,6 @@
 from RBTNode import RBTNode
 from BinarySearchTree import BinarySearchTree
 
-
 class RedBlackTree(BinarySearchTree):
 
     def setRoot(self, newNode):

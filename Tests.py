@@ -1,13 +1,14 @@
 import unittest
 
+import numpy as np
+from matplotlib import pyplot as plt
+import matplotlib.patches as mpatches
+from timeit import default_timer as timer
+
 from BSTNode import BSTNode
 from BinarySearchTree import BinarySearchTree
 from RBTNode import RBTNode
 from RedBlackTree import RedBlackTree
-
-import numpy as np
-from matplotlib import pyplot as plt
-from timeit import default_timer as timer
 
 class MyTestCase(unittest.TestCase):
     def testComputeBSTHeight(self):
@@ -55,7 +56,7 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(heightC, 4, "height should be 4.")
 
     def testWorstCaseInBST(self):
-        N = np.arange(1,960,1)
+        N = np.arange(1,50,1)
         BSTHeight = []
 
         for n in N:
@@ -70,6 +71,7 @@ class MyTestCase(unittest.TestCase):
         plt.plot(N, BSTHeight)
         plt.xlabel("n")
         plt.ylabel("bstHeight")
+        plt.title("Dealing of ascending keys in BST: Worst case")
         plt.show()
 
     def testWorstCaseInRBT(self):
@@ -88,6 +90,7 @@ class MyTestCase(unittest.TestCase):
         plt.plot(N,RBTHeight, 'g', 1.7*np.log2(N), 'r')
         plt.xlabel("n")
         plt.ylabel("rbtHeight")
+        plt.title("Dealing of ascending keys in RBT")
         plt.show()
 
     def testPlotBothHeights(self):
@@ -108,6 +111,12 @@ class MyTestCase(unittest.TestCase):
             RBTHeight.append(rbt.computeHeight(rbt.root))
 
         plt.plot(N,BSTHeight,'r', N, RBTHeight, 'g')
+        plt.title("Comparison between heights in BST and RBT")
+        plt.xlabel("n")
+        plt.ylabel("height")
+        redPatch = mpatches.Patch(color = 'red', label = "Binary search tree")
+        greenPatch = mpatches.Patch(color = 'green', label = "Red black tree")
+        plt.legend(handles = [redPatch, greenPatch])
         plt.show()
 
     def testTimeComplexity(self):
@@ -116,8 +125,8 @@ class MyTestCase(unittest.TestCase):
         bstComplexity = [0]*maxValue
         rbtComplexity = [0]*maxValue
 
-        i = 0
-        for times in range (0,200,1):
+        totExperiments = 200
+        for experiment in range (0,totExperiments,1):
             bst = BinarySearchTree()
             rbt = RedBlackTree()
 
@@ -132,14 +141,19 @@ class MyTestCase(unittest.TestCase):
 
                 bstComplexity[n] += end1-start1
                 rbtComplexity[n] += end2-start2
-                i +=1
 
         for value in bstComplexity:
-            value /= i
+            value /= totExperiments
         for value in rbtComplexity:
-            value /=i
+            value /= totExperiments
 
         plt.plot(N,bstComplexity, 'r', N, rbtComplexity,'g')
+        plt.title("Time complexity of 'insert()' in BST and RBT")
+        plt.xlabel("n")
+        plt.ylabel("seconds")
+        redPatch = mpatches.Patch(color = 'red', label = "Binary search tree")
+        greenPatch = mpatches.Patch(color = 'green', label = "Red black tree")
+        plt.legend(handles = [redPatch, greenPatch])
         plt.show()
 
 if __name__ == '__main__':

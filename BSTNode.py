@@ -1,5 +1,4 @@
 
-
 class BSTNode:
     def __init__(self, key):
         self.key = key
@@ -33,5 +32,3 @@ class BSTNode:
     def setFather(self, father):
         self.father = father
 
-    def print(self):
-        print(self.key)
