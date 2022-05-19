@@ -1,13 +1,24 @@
 from RBTNode import RBTNode
 from BinarySearchTree import BinarySearchTree
 
-class RedBlackTree(BinarySearchTree):
+class RedBlackTree(BinarySearchTree):       #inherits from BinarySearchTree
 
     def setRoot(self, newNode):
         self.root = newNode
         self.root.color = "black"
 
-    def rbInsertFixup(self, insertedNode):
+    #equivalent of insert() in BinarySearchTree
+    def rbInsert(self, newNode):        #calls helper method rbInsertFixup()
+        self.Tnil = RBTNode(10000)      #creates sentinel node Tnil
+        self.Tnil.color = "black"
+        newNode.left = self.Tnil
+        newNode.right = self.Tnil
+
+        self.insert(newNode)
+        newNode.color = "red"
+        self.rbInsertFixup(newNode)
+
+    def rbInsertFixup(self, insertedNode):      #calls helper methods leftRotate() and rightRotate()
         if insertedNode.father is not None:
             finished = False
             while not finished and insertedNode.father.color == "red":
@@ -73,16 +84,7 @@ class RedBlackTree(BinarySearchTree):
         y.right = x
         x.father = y
 
-    def rbInsert(self, newNode):
-        self.Tnil = RBTNode(10000)
-        self.Tnil.color = "black"
-        newNode.left = self.Tnil
-        newNode.right = self.Tnil
-        self.insert(newNode)
-        newNode.color = "red"
-        self.rbInsertFixup(newNode)
-
-    def inOrderWalk(self):
+    def inOrderWalk(self):      #calls helper method _inOrder()
         self._inOrder(self.root)
 
     def _inOrder(self,v):
@@ -95,15 +97,15 @@ class RedBlackTree(BinarySearchTree):
         if v.right is not None:
             self._inOrder(v.right)
 
-    def insert(self,newNode):
+    def insert(self,newNode):       #calls helper methods setRoot() and insertNode()
         if self.root is None:
             self.setRoot(newNode)
         else:
             self.insertNode(self.root, newNode)
 
-    def insertNode(self, currentNode, newNode):
+    def insertNode(self, currentNode, newNode):     #recursive method
         if newNode.key <= currentNode.key:
-            if currentNode.left.key is not 10000:
+            if currentNode.left.key is not 10000:       #moves down the tree until sentinel nodes
                 self.insertNode(currentNode.left, newNode)
             else:
                 currentNode.left = newNode
@@ -115,9 +117,9 @@ class RedBlackTree(BinarySearchTree):
                 currentNode.right = newNode
                 newNode.father = currentNode
 
-    def computeHeight(self, v):
+    def computeHeight(self, v):     #recursive method
         if self.root is not None:
-            if v.key is 10000:
+            if v.key is 10000:      #finds sentinel node
                 return -1
             else:
                 leftHeight = -1

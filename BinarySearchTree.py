@@ -3,7 +3,7 @@ class BinarySearchTree:
     def __init__(self):
         self.root = None
 
-    def insert(self,newNode):
+    def insert(self,newNode):       #calls helper methods setRoot() and insertNode()
         if self.root is None:
             self.setRoot(newNode)
         else:
@@ -12,7 +12,7 @@ class BinarySearchTree:
     def setRoot(self, newNode):
         self.root = newNode
 
-    def insertNode(self, currentNode, newNode):
+    def insertNode(self, currentNode, newNode):     #recursive method
         if newNode.key <= currentNode.key:
             if currentNode.left:
                 self.insertNode(currentNode.left, newNode)
@@ -29,7 +29,7 @@ class BinarySearchTree:
     def recursiveSearch(self, key):
         return self.findNode(self.root, key)
 
-    def findNode(self, currentNode, key):
+    def findNode(self, currentNode, key):       #recursive method
         if currentNode is None:
             return False, None
         elif key == currentNode.key:
@@ -39,7 +39,7 @@ class BinarySearchTree:
         else:
             return self.findNode(currentNode.right, key)
 
-    def inOrderWalk(self):
+    def inOrderWalk(self):      #calls helper method _inOrder()
         self._inOrder(self.root)
 
     def _inOrder(self,v):
