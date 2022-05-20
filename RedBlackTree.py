@@ -92,7 +92,7 @@ class RedBlackTree(BinarySearchTree):       #inherits from BinarySearchTree
             return
         if v.left is not None:
             self._inOrder(v.left)
-        if v.key is not 10000:
+        if v.key != 10000:
             print(v.key, v.color)
         if v.right is not None:
             self._inOrder(v.right)
@@ -105,13 +105,13 @@ class RedBlackTree(BinarySearchTree):       #inherits from BinarySearchTree
 
     def insertNode(self, currentNode, newNode):     #recursive method
         if newNode.key <= currentNode.key:
-            if currentNode.left.key is not 10000:       #moves down the tree until sentinel nodes
+            if currentNode.left.key != 10000:       #moves down the tree until sentinel nodes
                 self.insertNode(currentNode.left, newNode)
             else:
                 currentNode.left = newNode
                 newNode.father = currentNode
         elif newNode.key > currentNode.key:
-            if currentNode.right.key is not 10000:
+            if currentNode.right.key != 10000:
                 self.insertNode(currentNode.right, newNode)
             else:
                 currentNode.right = newNode
@@ -119,7 +119,7 @@ class RedBlackTree(BinarySearchTree):       #inherits from BinarySearchTree
 
     def computeHeight(self, v):     #recursive method
         if self.root is not None:
-            if v.key is 10000:      #finds sentinel node
+            if v.key == 10000:      #finds sentinel node
                 return -1
             else:
                 leftHeight = -1

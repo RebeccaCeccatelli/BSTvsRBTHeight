@@ -10,7 +10,7 @@ from BinarySearchTree import BinarySearchTree
 from RBTNode import RBTNode
 from RedBlackTree import RedBlackTree
 
-class MyTestCase(unittest.TestCase):
+class Ex1TestCase(unittest.TestCase):
     def testComputeBSTHeight(self):
         A = [13,15,7,6,2,20,18,1,9,52]
         bstA = BinarySearchTree()
@@ -69,9 +69,9 @@ class MyTestCase(unittest.TestCase):
             self.assertEqual(height, n-1)
 
         plt.plot(N, BSTHeight)      #plotting commands
-        plt.xlabel("n")
-        plt.ylabel("bstHeight")
         plt.title("Dealing of ascending keys in BST: Worst case")
+        plt.xlabel("n")
+        plt.ylabel("BSTHeight")
         plt.show()
 
     def testWorstCaseInRBT(self):
@@ -88,9 +88,12 @@ class MyTestCase(unittest.TestCase):
             self.assertLess(height, 2*np.log2(n+1))
 
         plt.plot(N,RBTHeight, 'g', 1.7*np.log2(N), 'r')     #plotting commands
-        plt.xlabel("n")
-        plt.ylabel("rbtHeight")
         plt.title("Dealing of ascending keys in RBT")
+        plt.xlabel("n")
+        plt.ylabel("RBTHeight")
+        redPatch = mpatches.Patch(color = 'red', label = "log2(n)")
+        greenPatch = mpatches.Patch(color = 'green', label = "Red black tree")
+        plt.legend(handles = [redPatch, greenPatch])
         plt.show()
 
     def testPlotBothHeights(self):
