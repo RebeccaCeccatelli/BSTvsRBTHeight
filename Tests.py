@@ -151,7 +151,10 @@ class Ex1TestCase(unittest.TestCase):
         for value in rbtComplexity:
             value /= totExperiments
 
-        plt.plot(N,bstComplexity, 'r', N, rbtComplexity,'g')        #plotting commands
+        bstMovingAverage = self.computeMovingAverage(bstComplexity)
+        rbtMovingAverage = self.computeMovingAverage(rbtComplexity)
+
+        plt.plot(N,bstMovingAverage,'r', N, rbtMovingAverage,'g')       #plotting commands
         plt.title("Time complexity of 'insert()' in BST and RBT")
         plt.xlabel("n")
         plt.ylabel("seconds")
@@ -159,6 +162,17 @@ class Ex1TestCase(unittest.TestCase):
         greenPatch = mpatches.Patch(color = 'green', label = "Red black tree")
         plt.legend(handles = [redPatch, greenPatch])
         plt.show()
+
+    def computeMovingAverage(self, array):
+        movingAverages = []
+        cumSum = np.cumsum(array)
+
+        i=1
+        while i<=len(array):
+            windowAverage = round(cumSum[i-1]/i, 10)
+            movingAverages.append(windowAverage)
+            i +=1
+        return movingAverages
 
 if __name__ == '__main__':
     unittest.main()
