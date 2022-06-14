@@ -11,6 +11,7 @@ from RBTNode import RBTNode
 from RedBlackTree import RedBlackTree
 
 class Ex1TestCase(unittest.TestCase):
+
     def testComputeBSTHeight(self):
         A = [13,15,7,6,2,20,18,1,9,52]
         bstA = BinarySearchTree()
